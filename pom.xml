@@ -1,0 +1,35 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>se.aaslin.developer</groupId>
+	<artifactId>roboeventbus</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>Robo-EventBus</name>
+	<description>An eventbus for Android applications</description>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.google.android</groupId>
+			<artifactId>android</artifactId>
+			<version>2.2.1</version>
+		</dependency>
+	</dependencies>
+	
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-site-plugin</artifactId>
+				<version>3.0</version>
+			</plugin>
+		</plugins>
+	</build>
+	
+	<distributionManagement>
+		<repository>
+			<uniqueVersion>false</uniqueVersion>
+			<id>snapshots</id>
+			<name>Snapshots</name>
+			<url>http://ll.homenet.org:8081/nexus/content/repositories/snapshots/</url>
+			<layout>default</layout>
+		</repository>
+	</distributionManagement>
+</project>
