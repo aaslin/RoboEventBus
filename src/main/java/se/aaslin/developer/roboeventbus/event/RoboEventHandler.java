@@ -1,5 +1,5 @@
 package se.aaslin.developer.roboeventbus.event;
 
-public interface EventHandler {
+public interface RoboEventHandler {
 
 }

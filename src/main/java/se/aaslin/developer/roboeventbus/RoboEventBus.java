@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import se.aaslin.developer.roboeventbus.event.EventHandler;
+import se.aaslin.developer.roboeventbus.event.RoboEventHandler;
 import se.aaslin.developer.roboeventbus.event.RoboEvent;
 
 public class RoboEventBus {
@@ -20,24 +20,31 @@ public class RoboEventBus {
 	private RoboEventBus() {
 	}
 
-	public <H extends EventHandler> void addHandler(RoboEvent.Type<H> type, H handler) {
-		doAdd(type, handler);
+	public <H extends RoboEventHandler> RoboRegistration addHandler(RoboEvent.Type<H> type, H handler) {
+		return doAdd(type, handler);
 	}
 	
-	private <H extends EventHandler> void doAdd(RoboEvent.Type<H> type, H handler){
+	private <H extends RoboEventHandler> RoboRegistration doAdd(RoboEvent.Type<H> type, final H handler){
 		if (!eventManager.containsKey(type)) {
 			eventManager.put(type, new ArrayList<H>());
 		}
 		@SuppressWarnings("unchecked")
-		List<H> handlers = (List<H>) eventManager.get(type);
+		final List<H> handlers = (List<H>) eventManager.get(type);
 		handlers.add(handler);
+		
+		return new RoboRegistration() {
+			
+			public void removeHandler() {
+				handlers.remove(handler);
+			}
+		};
 	}
 	
 	public void fireEvent(RoboEvent<?> event){
 		doFire(event);
 	}
 	
-	private <H extends EventHandler> void doFire(RoboEvent<H> event){
+	private <H extends RoboEventHandler> void doFire(RoboEvent<H> event){
 		@SuppressWarnings("unchecked")
 		List<H> handlers = (List<H>) eventManager.get(event.getType());
 		
@@ -45,5 +52,4 @@ public class RoboEventBus {
 			event.dispatch(handler);
 		}
 	}
-
 }

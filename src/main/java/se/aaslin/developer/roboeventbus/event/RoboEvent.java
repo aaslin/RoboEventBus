@@ -1,6 +1,7 @@
 package se.aaslin.developer.roboeventbus.event;
 
-public abstract class RoboEvent<T extends EventHandler> {
+public abstract class RoboEvent<T extends RoboEventHandler> {
+	
 	public static class Type<T> {
 	}
 	
